@@ -7,6 +7,41 @@
     <link rel="stylesheet" href="contactos.css">
 </head>
 <body>
-    
+    <div class="container">
+        <div class="header">
+            <h1>Gestión de Contactos</h1>
+            <p>Administra tu lista de contactos de manera fácil y rápida</p>
+        </div>
+
+        <div class="form-container">
+            <form id="contactForm">
+                <input type="hidden" id="contactId">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" required>
+                    <div class="error" id="nombreError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" required>
+                    <div class="error" id="telefonoError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <div class="error" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" required>
+                    <div class="error" id="direccionError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Agregar Contacto</button>
+            </form>
+        </div>
+
+        <div class="contacts-grid" id="contactsList"></div>
+    </div>
+
 </body>
 </html>
