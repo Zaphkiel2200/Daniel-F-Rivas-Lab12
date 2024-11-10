@@ -11,6 +11,7 @@
         <header class="header">
             <h1>Contactos Pro</h1>
             <p>Manage your contacts with style</p>
+            <button id="toggleDarkMode" class="toggle-dark-mode">Toggle Dark Mode</button>
         </header>
 
         <div class="app-container">
@@ -18,7 +19,7 @@
                 <h2 class="form-title">Add Contact</h2>
                 <form id="contactForm">
                     <input type="hidden" id="contactId">
-                    
+
                     <div class="form-group">
                         <label for="nombre">Name</label>
                         <input type="text" id="nombre" placeholder="e.g., John Doe" required>
@@ -43,15 +44,25 @@
                         <div class="error" id="direccionError"></div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" id="submitBtn">
-                        Add Contact
-                    </button>
+                    <div class="form-group">
+                        <label for="profileImage">Profile Image</label>
+                        <input type="file" id="profileImage" accept="image/*">
+                        <div class="profile-preview" id="profilePreview"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Add Contact</button>
                 </form>
             </div>
 
-            <div class="contacts-grid" id="contactsList"></div>
+            <div class="contacts-display">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search contacts...">
+                </div>
+                <div class="contacts-grid" id="contactsList"></div>
+            </div>
         </div>
     </div>
     <script src="contactos.js"></script>
 </body>
 </html>
+

@@ -7,6 +7,14 @@
     --border-color: #e5e7eb;
 }
 
+body.dark-mode {
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-primary: #ffffff;
+    --border-color: #333;
+    --primary-color: #bb86fc;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -33,11 +41,25 @@ body {
     background-color: var(--primary-color);
     padding: 2rem;
     border-radius: 1rem;
+    position: relative;
+}
+
+.toggle-dark-mode {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }
 
 .app-container {
     display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .form-container {
@@ -69,8 +91,34 @@ body {
     border-radius: 0.25rem;
 }
 
-.contacts-grid {
+.profile-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contacts-display {
     flex: 1;
+}
+
+.search-bar {
+    margin-bottom: 1rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+}
+
+.contacts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
@@ -82,6 +130,12 @@ body {
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
 .contact-actions {

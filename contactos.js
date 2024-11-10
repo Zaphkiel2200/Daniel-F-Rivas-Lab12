@@ -3,6 +3,7 @@ class ContactManager {
         this.contacts = [];
         this.loadContacts();
         this.setupEventListeners();
+        this.currentImage = null;
     }
 
     loadContacts() {
@@ -17,6 +18,7 @@ class ContactManager {
 
     addContact(contact) {
         contact.id = Date.now().toString();
+        contact.image = this.currentImage;
         this.contacts.push(contact);
         this.saveContacts();
         this.renderContacts();
@@ -25,7 +27,7 @@ class ContactManager {
     updateContact(id, updatedContact) {
         const index = this.contacts.findIndex(contact => contact.id === id);
         if (index !== -1) {
-            this.contacts[index] = { ...this.contacts[index], ...updatedContact };
+            this.contacts[index] = { ...this.contacts[index], ...updatedContact, image: this.currentImage || this.contacts[index].image };
             this.saveContacts();
             this.renderContacts();
         }
@@ -37,13 +39,14 @@ class ContactManager {
         this.renderContacts();
     }
 
-    renderContacts() {
+    renderContacts(filteredContacts = this.contacts) {
         const contactsList = document.getElementById('contactsList');
         contactsList.innerHTML = '';
-        this.contacts.forEach(contact => {
+        filteredContacts.forEach(contact => {
             const contactCard = document.createElement('div');
             contactCard.className = 'contact-card';
             contactCard.innerHTML = `
+                ${contact.image ? `<img src="${contact.image}" alt="Profile" class="profile-preview">` : ''}
                 <h3>${contact.nombre}</h3>
                 <p>Phone: ${contact.telefono}</p>
                 <p>Email: ${contact.email}</p>
@@ -58,6 +61,33 @@ class ContactManager {
     }
 
     setupEventListeners() {
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredContacts = this.contacts.filter(contact =>
+                contact.nombre.toLowerCase().includes(query) ||
+                contact.telefono.includes(query)
+            );
+            this.renderContacts(filteredContacts);
+        });
+
+        document.getElementById('toggleDarkMode').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        const profileImageInput = document.getElementById('profileImage');
+        profileImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.currentImage = e.target.result;
+                    document.getElementById('profilePreview').innerHTML = `<img src="${this.currentImage}" alt="Profile">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
         const form = document.getElementById('contactForm');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -76,6 +106,14 @@ class ContactManager {
                 this.addContact(formData);
             }
             form.reset();
+            this.currentImage = null;
+            document.getElementById('profilePreview').innerHTML = '';
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
         });
     }
 
@@ -87,6 +125,8 @@ class ContactManager {
             document.getElementById('email').value = contact.email;
             document.getElementById('direccion').value = contact.direccion;
             document.getElementById('contactId').value = contact.id;
+            this.currentImage = contact.image || null;
+            document.getElementById('profilePreview').innerHTML = contact.image ? `<img src="${contact.image}" alt="Profile">` : '';
         }
     }
 }
