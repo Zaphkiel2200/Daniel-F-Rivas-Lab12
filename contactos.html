@@ -7,41 +7,66 @@
     <link rel="stylesheet" href="contactos.css">
 </head>
 <body>
+</head>
+<body>
     <div class="container">
-        <div class="header">
-            <h1>Gestión de Contactos</h1>
-            <p>Administra tu lista de contactos de manera fácil y rápida</p>
-        </div>
+        <header class="header">
+            <h1>Contactos Pro</h1>
+            <p>Gestiona tus contactos con estilo</p>
+        </header>
 
-        <div class="form-container">
-            <form id="contactForm">
-                <input type="hidden" id="contactId">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" required>
-                    <div class="error" id="nombreError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" required>
-                    <div class="error" id="telefonoError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required>
-                    <div class="error" id="emailError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="direccion">Dirección</label>
-                    <input type="text" id="direccion" required>
-                    <div class="error" id="direccionError"></div>
-                </div>
-                <button type="submit" class="btn btn-primary" id="submitBtn">Agregar Contacto</button>
-            </form>
-        </div>
+        <div class="app-container">
+            <div class="form-container">
+                <h2 class="form-title">Añadir Contacto</h2>
+                <form id="contactForm">
+                    <input type="hidden" id="contactId">
+                    
+                    <div class="profile-upload">
+                        <div class="profile-preview" id="profilePreview">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <input type="file" id="profileImage" accept="image/*" hidden>
+                        <button type="button" class="upload-btn" onclick="document.getElementById('profileImage').click()">
+                            <i data-lucide="upload"></i>
+                            Subir foto
+                        </button>
+                    </div>
 
-        <div class="contacts-grid" id="contactsList"></div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required>
+                        <div class="error" id="nombreError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="Ej: 612345678" required>
+                        <div class="error" id="telefonoError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Ej: juan@email.com" required>
+                        <div class="error" id="emailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" placeholder="Ej: Calle Principal 123" required>
+                        <div class="error" id="direccionError"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i data-lucide="user-plus"></i>
+                        <span>Agregar Contacto</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="contacts-grid" id="contactsList"></div>
+        </div>
+        
     </div>
-
+        <script src="contactos.js"></script>
 </body>
 </html>
